@@ -7,7 +7,7 @@
         <h3>View more recent Blogs</h3>
       </div>
       <div class="blog-cards">
-        <BlogCards v-for="(post,index) in sampleBlogCards" :key="index"/>
+        <BlogCards :post="post"  v-for="(post,index) in sampleBlogCards" :key="index"/>
       </div>
     </div>
   </div>
