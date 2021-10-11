@@ -1,24 +1,37 @@
 <template>
   <div class="home">
     <BlogPost :post="welcomeScreen"/>
-    <BlogPost :post="post" v-for="(post,index) in sampleBlogPost" :key="index" />
+    <BlogPost :post="post" v-for="(post, index) in simpleBlogPost" :key="index"/>
     <div class="blog-card-wrap">
       <div class="container">
-        <h3>View more recent Blogs</h3>
+        <h2>View More Recent blogs</h2>
+        <div class="blog-cards">
+          <BlogCard 
+            :post="post"
+            v-for="(post, index) in sampleBlogCards" 
+            :key="index"
+          />
+        </div>
       </div>
-      <div class="blog-cards">
-        <BlogCards :post="post"  v-for="(post,index) in sampleBlogCards" :key="index"/>
+    </div>
+    <div class="updates">
+      <div class="container">
+        <h2>Never miss a post. Register free</h2>
+        <router-link class="router-button" to="#">
+          Register for FireBlogs <Arrow class="arrow arrow-light"/>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Arrow from "../assets/Icons/arrow-right-light.svg";
 import BlogPost from '../components/BlogPost.vue'
-import BlogCards from '../components/BlogCard.vue'
+import BlogCard from '../components/BlogCard.vue'
 export default {
   name: "Home",
-  components: { BlogPost,BlogCards },
+  components: { BlogPost,BlogCard,Arrow },
   data(){
      return {
       welcomeScreen: {
@@ -38,13 +51,12 @@ export default {
           blogHTML: "This is a Filter blog post title!",
           blogCoverPhoto: "designed-for-everyone"
         }
-      ],
-      sampleBlogCards:[
-        {blogTitle:"Blog Card #1",blogCoverPhoto:"stock-1",blogDate:"May 1,2021"},
-        {blogTitle:"Blog Card #2",blogCoverPhoto:"stock-2",blogDate:"May 1,2021"},
-        {blogTitle:"Blog Card #3",blogCoverPhoto:"stock-3",blogDate:"May 1,2021"},
-        {blogTitle:"Blog Card #4",blogCoverPhoto:"stock-4",blogDate:"May 1,2021"},
       ]
+    }
+  },
+  computed:{
+    sampleBlogCards(){
+      return this.$store.state.sampleBlogCards 
     }
   }
 };
@@ -87,6 +99,20 @@ export default {
         font-size: 40px;
       }
     }
+  }
+}
+.arrow{
+  margin-left:8px;
+  width:12px;
+  path{
+    fill: #000;
+  }
+}
+.arrow-light{
+  margin-left:8px;
+  width:12px;
+  path{
+    fill: #fff;
   }
 }
 </style>
