@@ -85,16 +85,73 @@ export default {
                 font-size:40px
             }
         }
+        
+        .inputs{
+            width:100%;
+            max-width: 350px;
 
-        .forget-password{
+            .input{
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom:8px;
+                input{
+                    width: 100%;
+                    border:none;
+                    background: #f2f7f6;
+                    padding:4px 4px 4px 30px;
+                    height:50px;
+
+                    &:focus{
+                        outline:none;
+                    }
+
+                }
+                .icon{
+                    width:12px;
+                    position: absolute;
+                    left:6px}
+            }
+        }
+        .forgot-password{
             text-decoration: none;
             color:#000;
             cursor:pointer;
             font-size: 14px;
-            2:21:20
+            margin:16px 0 32px;
+            border-bottom: 1px solid transparent;
+            transition: 0.5s ease all;
+
+            &:hover{
+                border-color:#303030;
+            }
         }
+        .angle{
+            display: flex;
+            position: absolute;
+            background: #fff;
+            transform: rotateZ(3deg);
+            width:60px;
+            right:-30px;
+            height:101%;
+            @media(min-width: 900px){
+                display: initial;
+            }
+        }
+
     }
      
-
+    .background{
+        display: none;
+        flex: 2;
+        background-size:cover ;
+        background-image: url("../assets/background.png");
+        width:100%;
+        height: 100%;
+        @media(min-width: 900px){
+            display: initial;
+        }
+    }
 }
 </style>
