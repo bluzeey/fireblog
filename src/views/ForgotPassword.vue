@@ -29,6 +29,8 @@
 import email from "../assets/Icons/envelope-regular.svg"
 import Modal from "../components/Modal.vue"
 import Loading from "../components/Loading.vue"
+import firebase from "firebase/app";
+import "firebase/auth";
 export default {
    name:"forgotPassword",
    data(){
@@ -45,6 +47,18 @@ export default {
      Loading
    },
    methods:{
+     resetPassword(){
+       this.loading=true
+       firebase.auth().sendPasswordResetEmail(this.email).then(()=>{
+         this.modalMessage="If your account exists, you will recieve a email"
+         this.loading=false;
+         this.modalActive=true
+       }).catch(err=>{
+         this.modalMessage=err.message
+         this.loading=false
+         this.modal=true
+       })
+     },
      closeModal(){
      this.modalActive=!this.modalActive;
      this.email=""

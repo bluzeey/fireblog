@@ -57,6 +57,9 @@ export default {
   computed:{
     sampleBlogCards(){
       return this.$store.state.sampleBlogCards 
+    },
+    user(){
+      return this.$store.state.user;
     }
   }
 };
