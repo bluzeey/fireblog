@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <BlogPost :post="welcomeScreen"/>
-    <BlogPost :post="post" v-for="(post, index) in simpleBlogPost" :key="index"/>
+    <BlogPost v-if="!user" :post="welcomeScreen"/>
+    <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index"/>
     <div class="blog-card-wrap">
       <div class="container">
         <h2>View More Recent blogs</h2>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="updates">
+    <div v-if="!user" class="updates">
       <div class="container">
         <h2>Never miss a post. Register free</h2>
         <router-link class="router-button" to="#">
