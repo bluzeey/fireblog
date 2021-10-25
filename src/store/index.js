@@ -16,6 +16,8 @@ export default new Vuex.Store({
     blogHTML:"Write your blog title here...",
     blogTitle:"",
     blogPhotoName:"",
+    blogPosts:[],
+    blogLoaded:true,
     blogPhotoFileURL:null,
     blogPhotoPreview:null,
     editPost:null,
@@ -26,6 +28,14 @@ export default new Vuex.Store({
     profileUsername:null,
     profileId:null,
     profileInitials:null,
+  },
+  getters:{
+    blogPostsFeed(state){
+      return state.blogPosts.slice(0,2);
+    },
+    blogPostsCards(state){
+      return state.blogPosts.slice(2,6);
+    }
   },
   mutations: {
     newBlogPost(state,payload){
@@ -80,6 +90,23 @@ export default new Vuex.Store({
          commit("setProfileInitials")
          console.log(dbResults)
     }
+  },
+  async getPost({state}){
+    const dataBase=await db.collection('blogPosts').orderBy('date','desc');
+    const dbResults=await dataBase.get()
+    dbResults.forEach((doc)=>{
+      if(!state.blogPosts.some(post=>post.blogID===doc.id)){
+        const data={
+          blogID:doc.data().blogID,
+          blogHTML:doc.data().blogHTML,
+          blogCoverPhoto:doc.data().blogCoverPhoto,
+          blogTitle:doc.data().blogTitle,
+          blogDate:doc.data().date,
+        };
+        state.blogPosts.push(data);
+      }
+    });
+    state.postLoaded=true
   },
   async updateUserSettings({commit,state}){
     const dataBase=await db.collection('users').doc(state.profileId)
